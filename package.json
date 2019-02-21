@@ -1,0 +1,29 @@
+{
+  "name": "auto-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepublishOnly": "pkg-ok",
+    "test": "ava --verbose",
+    "doc": "jsdoc -c ./jsdoc.json -r -R ./README.md -P ./package.json --verbose",
+    "coverage": "nyc ava",
+    "report": "nyc report --reporter=html"
+  },
+  "dependencies": {
+    "@polka/send-type": "^0.5.2",
+    "@slimio/is": "^1.4.0",
+    "@slimio/utils": "^0.7.0",
+    "ava": "^1.2.1",
+    "body-parser": "^1.18.3",
+    "cherow": "^1.6.9",
+    "esprima": "^4.0.1",
+    "kleur": "^3.0.2",
+    "make-promises-safe": "^4.0.0",
+    "polka": "^0.5.2"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
