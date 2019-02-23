@@ -18,6 +18,33 @@ class Test {
         for (const obj of Scriptparsed.body) {
             if (obj.type === "FunctionDeclaration") {
                 if (obj.body.body[0].type === "ReturnStatement") {
+                    if (obj.body.body[0].argument.type === "ObjectExpression") {
+                        await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaIsFunction(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaFunctionReturnObject(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaEND}`)
+                    }
+                    if (obj.body.body[0].argument.type === "ClassExpression") {
+                        await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaIsFunction(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaFunctionReturnClass(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaEND}`)
+                    }
+                    if (obj.body.body[0].argument.type === "ArrayExpression") {
+                        if (obj.body.body[0].argument.elements.length === 0){
+                            await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
+                            await appendFile("test.js", `${TestPartsFunction.avaIsFunction(obj.id.name)}`)
+                            await appendFile("test.js", `${TestPartsFunction.avaFunctionReturnArray(obj.id.name)}`)
+                            await appendFile("test.js", `${TestPartsFunction.avaEND}`)
+                        }
+                    }
+                    if (obj.body.body[0].argument.type === "NewExpression") {
+                        await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaIsFunction(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaFunctionReturnPromise(obj.id.name)}`)
+                        await appendFile("test.js", `${TestPartsFunction.avaEND}`)
+                    }
+                    console.log(obj.body.body[0]);
                     if (obj.body.body[0].argument.type === "Identifier") {
                         await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
                         await appendFile("test.js", `${TestPartsFunction.avaIsFunction(obj.id.name)}`)
@@ -34,6 +61,15 @@ class Test {
                         }
                         await appendFile("test.js", `${TestPartsFunction.avaEND}`)
                         await RC
+                    }
+                    if (obj.body.body[0].argument.type === "CallExpression") {
+                        if (obj.body.body[0].argument.callee.object.name === "Object") {
+                            await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
+                            await appendFile("test.js", `${TestPartsFunction.avaIsFunction(obj.id.name)}`)
+                            await appendFile("test.js", `${TestPartsFunction.avaFunctionReturnPlainObject(obj.id.name)}`)
+                            await appendFile("test.js", `${TestPartsFunction.avaEND}`)
+                            await RC
+                        }
                     }
                 }
             }
