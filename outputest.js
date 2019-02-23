@@ -1,25 +1,14 @@
-function add(a , b) {
-    return a + b
+function add(a) {
+    return a
 }
 
-function hello(yop) {
-    return yop
+function nombre() {
+    return 2
 }
 
-function nul() {
-    return null
+function yop() {
+    return "hello"
 }
 
-function undef(){
-    return undefined
-}
 
-function promis(){
-    return Promise
-}
-
-function name(parameters){
-    statements
-  }
-
-module.exports = { add, hello, nul, undef, promis, name }
+module.exports = { add, nombre, yop }
