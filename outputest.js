@@ -15,7 +15,7 @@ function object() {
 }
 
 function Promis() {
-    return new Promise(function(res, rej) {
+    return new Promise(function (res, rej) {
         res("hello")
     })
 }
@@ -27,15 +27,30 @@ function array() {
 function classes() {
     return class Rectangle {
         constructor(hauteur, largeur) {
-          this.hauteur = hauteur;
-          this.largeur = largeur;
+            this.hauteur = hauteur;
+            this.largeur = largeur;
         }
-      };
+    };
 }
 
-function obj() {
-    return '{}'
+function obje() {
+    return {}
 }
 
-module.exports = { func, nombre, string, object,
- Promis, array, classes, obj }
+function isSet() {
+    return new Set()
+}
+
+function isMap() {
+    return new Map()
+}
+
+function isWeakMap() {
+    return new WeakMap()
+}
+
+module.exports = {
+    func, nombre, string, object,
+    Promis, array, classes, obje, isSet,
+    isMap, isWeakMap
+}

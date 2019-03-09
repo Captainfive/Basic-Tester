@@ -16,7 +16,10 @@ const TestPartsFunction = {
     avaFunctionReturnPromise: taggedString`    assert.true(is.promise(${0}()))\n`,
     avaFunctionReturnArray: taggedString`    assert.true(is.array(${0}()))\n`,
     avaFunctionReturnClass: taggedString`    assert.true(is.classObject(new ${0}()))\n`,
-    avaEND: `});\n`,
+    avaFunctionReturnSet: taggedString`    assert.true(is.set(new ${0}()))\n`,
+    avaFunctionReturnMap: taggedString`    assert.true(is.map(new ${0}()))\n`,
+    avaFunctionReturnWeakMap: taggedString`    assert.true(is.weakMap(new ${0}()))\n`,
+    avaEND: `});\n\n`,
 
 };
 module.exports = { AvaStart, TestPartsFunction }
