@@ -10,10 +10,10 @@ class Algo{
         this.ScriptParsed = ScriptParsed
     }
 
-    async write(tagged, truc){
-        await appendFile("test.js", `${TestPartsFunction.avaStartFunction(truc)}`)
-        await appendFile("test.js", `${TestPartsFunction.avaIsFunction(truc)}`)
-        await appendFile("test.js", `${tagged}`)
+    async write(TaggedString, FunctionTested){
+        await appendFile("test.js", `${TestPartsFunction.avaStartFunction(FunctionTested)}`)
+        await appendFile("test.js", `${TestPartsFunction.avaIsFunction(FunctionTested)}`)
+        await appendFile("test.js", `${TaggedString}`)
         await appendFile("test.js", `${TestPartsFunction.avaEND}`)
     }
 

@@ -1,5 +1,5 @@
 class NewTest extends Algo {
-    constructor(ScriptPath, ScriptParsed){
+    constructor(){
         super(ScriptPath, ScriptParsed)
     }
     
