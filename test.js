@@ -16,7 +16,7 @@ const { isWeakMap } = require("./outputest.js");
 
 avaTest("Function func", (assert) => {
     assert.true(is.func(func))
-    assert.true(is.nullValue(func))
+    assert.true(is.object(func))
 });
 
 avaTest("Function nombre", (assert) => {
@@ -29,41 +29,21 @@ avaTest("Function string", (assert) => {
 
 avaTest("Function object", (assert) => {
     assert.true(is.func(object))
-    assert.true(is.nullValue(object))
-});
-
-avaTest("Function Promis", (assert) => {
-    assert.true(is.func(Promis))
-    assert.true(is.nullValue(Promis))
+    assert.true(is.object(object))
 });
 
 avaTest("Function array", (assert) => {
     assert.true(is.func(array))
-    assert.true(is.nullValue(array))
+    assert.true(is.array(array()))
 });
 
 avaTest("Function classes", (assert) => {
     assert.true(is.func(classes))
-    assert.true(is.nullValue(classes))
+    assert.true(is.classObject(new classes()))
 });
 
 avaTest("Function obje", (assert) => {
     assert.true(is.func(obje))
-    assert.true(is.nullValue(obje))
-});
-
-avaTest("Function isSet", (assert) => {
-    assert.true(is.func(isSet))
-    assert.true(is.nullValue(isSet))
-});
-
-avaTest("Function isMap", (assert) => {
-    assert.true(is.func(isMap))
-    assert.true(is.nullValue(isMap))
-});
-
-avaTest("Function isWeakMap", (assert) => {
-    assert.true(is.func(isWeakMap))
-    assert.true(is.nullValue(isWeakMap))
+    assert.true(is.object(obje))
 });
 

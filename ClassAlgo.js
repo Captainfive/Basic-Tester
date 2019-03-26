@@ -52,15 +52,15 @@ class Algo{
                         await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
                     }
                     if (obj.body.body[0].argument.type === "ClassExpression") {
-                        await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
+                        await this.write(TestPartsFunction.avaFunctionReturnClass(obj.id.name), obj.id.name)
                     }
                     if (obj.body.body[0].argument.type === "ArrayExpression") {
                         if (obj.body.body[0].argument.elements.length === 0){
-                            await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
+                            await this.write(TestPartsFunction.avaFunctionReturnArray(obj.id.name), obj.id.name)
                         }
                     }
                     if (obj.body.body[0].argument.type === "NewExpression") {
-                        await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
+                        // await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
                     }
                     console.log(obj.body.body[0]);
                     if (obj.body.body[0].argument.type === "Identifier") {
