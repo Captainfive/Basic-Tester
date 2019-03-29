@@ -1,7 +1,6 @@
 const avaTest = require("ava");
 const is = require("@slimio/is");
 
-const { func } = require("./outputest.js");
 const { nombre } = require("./outputest.js");
 const { string } = require("./outputest.js");
 const { object } = require("./outputest.js");
@@ -14,11 +13,6 @@ const { isMap } = require("./outputest.js");
 const { isWeakMap } = require("./outputest.js");
 
 
-avaTest("Function func", (assert) => {
-    assert.true(is.func(func))
-    assert.true(is.object(func))
-});
-
 avaTest("Function nombre", (assert) => {
     assert.true(is.number(nombre(10)))
 });
@@ -30,6 +24,11 @@ avaTest("Function string", (assert) => {
 avaTest("Function object", (assert) => {
     assert.true(is.func(object))
     assert.true(is.object(object))
+});
+
+avaTest("Function Promis", (assert) => {
+    assert.true(is.func(Promis))
+    assert.true(is.promise(Promis()))
 });
 
 avaTest("Function array", (assert) => {
@@ -45,5 +44,20 @@ avaTest("Function classes", (assert) => {
 avaTest("Function obje", (assert) => {
     assert.true(is.func(obje))
     assert.true(is.object(obje))
+});
+
+avaTest("Function isSet", (assert) => {
+    assert.true(is.func(isSet))
+    assert.true(is.set(new isSet()))
+});
+
+avaTest("Function isMap", (assert) => {
+    assert.true(is.func(isMap))
+    assert.true(is.map(new isMap()))
+});
+
+avaTest("Function isWeakMap", (assert) => {
+    assert.true(is.func(isWeakMap))
+    assert.true(is.weakMap(new isWeakMap()))
 });
 

@@ -1,7 +1,3 @@
-function func(a) {
-    return a
-}
-
 function nombre() {
     return 2
 }
@@ -50,7 +46,7 @@ function isWeakMap() {
 }
 
 module.exports = {
-    func, nombre, string, object,
+    nombre, string, object,
     Promis, array, classes, obje, isSet,
     isMap, isWeakMap
 }
