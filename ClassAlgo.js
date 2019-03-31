@@ -77,15 +77,16 @@ class Algo {
                         await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
                     }
                     if (Reflect.get(obj.body.body[0].argument, "type") === "Literal") {
-                        await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
+                        console.log(obj.body.body[0].argument);
                         if (typeof (obj.body.body[0].argument.value) === "string") {
-                            await appendFile("test.js", `${TestPartsFunction.avaFunctionReturnString(obj.id.name)}`)
+                            await this.write(TestPartsFunction.avaFunctionReturnString(obj.id.name), obj.id.name)
                         }
-                        if (typeof (obj.body.body[0].argument.value) === "number") {
-                            await appendFile("test.js", `${TestPartsFunction.avaFunctionReturnNumber(obj.id.name)}`)
+                        if (typeof (obj.body.body[0].argument.value) === "number" && Reflect.get(obj.body.body[0].argument, "bigint") === undefined) {
+                            await this.write(TestPartsFunction.avaFunctionReturnNumber(obj.id.name), obj.id.name)
                         }
-                        await appendFile("test.js", `${TestPartsFunction.avaEND}`)
-                        await RC
+                        if (Reflect.get(obj.body.body[0].argument, "bigint") === '"hello"') {
+                            await this.write(TestPartsFunction.avaFunctionReturnBigint(obj.id.name), obj.id.name)
+                        }
                     }
                     if (Reflect.get(obj.body.body[0].argument, "type") === "CallExpression") {
                         if (obj.body.body[0].argument.callee.object.name === "Object") {
