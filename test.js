@@ -11,13 +11,16 @@ const { obje } = require("./outputest.js");
 const { isSet } = require("./outputest.js");
 const { isMap } = require("./outputest.js");
 const { isWeakMap } = require("./outputest.js");
+const { isBingint } = require("./outputest.js");
 
 
 avaTest("Function nombre", (assert) => {
+    assert.true(is.func(nombre))
     assert.true(is.number(nombre(10)))
 });
 
 avaTest("Function string", (assert) => {
+    assert.true(is.func(string))
     assert.true(is.string(string()))
 });
 
@@ -59,5 +62,10 @@ avaTest("Function isMap", (assert) => {
 avaTest("Function isWeakMap", (assert) => {
     assert.true(is.func(isWeakMap))
     assert.true(is.weakMap(new isWeakMap()))
+});
+
+avaTest("Function isBingint", (assert) => {
+    assert.true(is.func(isBingint))
+    assert.true(is.bigint(isBingint()))
 });
 

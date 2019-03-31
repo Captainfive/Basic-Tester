@@ -45,8 +45,12 @@ function isWeakMap() {
     return new WeakMap()
 }
 
+function isBingint() {
+    return 957n
+}
+
 module.exports = {
     nombre, string, object,
     Promis, array, classes, obje, isSet,
-    isMap, isWeakMap
+    isMap, isWeakMap, isBingint
 }
