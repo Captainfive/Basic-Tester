@@ -1,11 +1,12 @@
 const { taggedString } = require("@slimio/utils");
 
-// Helpers 
+// Start Declarations
 const AvaStart = {
     import: taggedString`const { ${0} } = require("./${1}");\n`,
     require: taggedString`const ${0} = require("${1}");\n`,
 }
 
+// Pre-built sentences
 const TestPartsFunction = {
     avaStartFunction: taggedString`avaTest("Function ${0}", (assert) => {\n`,
     avaIsFunction: taggedString`    assert.true(is.func(${0}))\n`,
@@ -19,6 +20,7 @@ const TestPartsFunction = {
     avaFunctionReturnSet: taggedString`    assert.true(is.set(new ${0}()))\n`,
     avaFunctionReturnMap: taggedString`    assert.true(is.map(new ${0}()))\n`,
     avaFunctionReturnWeakMap: taggedString`    assert.true(is.weakMap(new ${0}()))\n`,
+    avaFunctionReturnBigint: taggedString`    assert.true(is.bigint(${0}()))\n`,
     avaEND: `});\n\n`,
 
 };
