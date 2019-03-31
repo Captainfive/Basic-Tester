@@ -6,7 +6,7 @@ function string() {
     return "hello"
 }
 
-function object() {
+function PlainObject() {
     return Object.create(null)
 }
 
@@ -29,7 +29,7 @@ function classes() {
     };
 }
 
-function obje() {
+function object() {
     return {}
 }
 
@@ -50,7 +50,7 @@ function isBingint() {
 }
 
 module.exports = {
-    nombre, string, object,
-    Promis, array, classes, obje, isSet,
+    nombre, string, PlainObject,
+    Promis, array, classes, object, isSet,
     isMap, isWeakMap, isBingint
 }
