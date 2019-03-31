@@ -77,7 +77,6 @@ class Algo {
                         await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
                     }
                     if (Reflect.get(obj.body.body[0].argument, "type") === "Literal") {
-                        console.log(obj.body.body[0].argument);
                         if (typeof (obj.body.body[0].argument.value) === "string") {
                             await this.write(TestPartsFunction.avaFunctionReturnString(obj.id.name), obj.id.name)
                         }
