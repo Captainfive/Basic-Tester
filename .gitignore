@@ -1,3 +1,5 @@
 /node_modules
+/package-lock.json
 
-package-lock.json
+# includes all the functions that are used to do the test
+/FonctionTest
