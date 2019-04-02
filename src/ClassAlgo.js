@@ -2,7 +2,7 @@
 const { appendFile } = require("fs").promises
 
 // Helpers 
-const { TestPartsFunction } = require("./src/Tagged")
+const { TestPartsFunction } = require("./Tagged")
 
 /**
  * @class Algo
