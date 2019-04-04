@@ -43,9 +43,12 @@ async function main() {
     await appendFile("test.js", `${AvaStart.require("avaTest", "ava")}`)
     await appendFile("test.js", `${AvaStart.require("is", "@slimio/is")}\n`)
 
+    const ExportRequire = []
     for (let valeur of Init.CheckModuleExports(parseScript)) {
-        await appendFile("test.js", `${AvaStart.import(valeur, `${response.FilesToTest}`)}`)
+        let space = " "
+        await ExportRequire.push(space + valeur)
     }
+    await appendFile("test.js", `${AvaStart.import(ExportRequire, `${response.FilesToTest}`)}`)
     
     // // Retour a la ligne
     const RC = await appendFile("test.js", "\n")
