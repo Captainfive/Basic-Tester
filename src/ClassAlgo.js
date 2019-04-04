@@ -103,6 +103,18 @@ class Algo {
                         if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Promise") {
                             await this.write(TestPartsFunction.avaFunctionReturnPromise(obj.id.name), obj.id.name)
                         }
+                        // Error
+                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Error") {
+                            await this.write(TestPartsFunction.avaFunctionReturnError(obj.id.name), obj.id.name)
+                        }
+                        // Regexp
+                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "RegExp") {
+                            await this.write(TestPartsFunction.avaFunctionReturnRegExp(obj.id.name), obj.id.name)
+                        }
+                        // Date
+                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Date") {
+                            await this.write(TestPartsFunction.avaFunctionReturnDate(obj.id.name), obj.id.name)
+                        }
                         // SET
                         if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Set") {
                             await this.write(TestPartsFunction.avaFunctionReturnSet(obj.id.name), obj.id.name)
@@ -115,6 +127,9 @@ class Algo {
                         if (Reflect.get(obj.body.body[0].argument.callee, "name") === "WeakMap") {
                             await this.write(TestPartsFunction.avaFunctionReturnWeakMap(obj.id.name), obj.id.name)
                         }
+                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "WeakSet") {
+                            await this.write(TestPartsFunction.avaFunctionReturnWeakSet(obj.id.name), obj.id.name)
+                        }
                     }
                     if (Reflect.get(obj.body.body[0].argument, "type") === "Literal") {
                         // String
@@ -125,15 +140,27 @@ class Algo {
                         if (typeof (obj.body.body[0].argument.value) === "number" && Reflect.get(obj.body.body[0].argument, "bigint") === undefined) {
                             await this.write(TestPartsFunction.avaFunctionReturnNumber(obj.id.name), obj.id.name)
                         }
+                        // Boolean
+                        if (typeof (obj.body.body[0].argument.value) === "boolean") {
+                            await this.write(TestPartsFunction.avaFunctionReturnBoolean(obj.id.name), obj.id.name)
+                        }
                         // Bigint
-                        if (Reflect.get(obj.body.body[0].argument, "bigint") === '"hello"') {
+                        if (typeof (obj.body.body[0].argument.bigint) === "string") {
                             await this.write(TestPartsFunction.avaFunctionReturnBigint(obj.id.name), obj.id.name)
+                        }
+                        // NULL
+                        if (Reflect.get(obj.body.body[0].argument, "value") === null) {
+                            await this.write(TestPartsFunction.avaFunctionReturnNull(obj.id.name), obj.id.name)
                         }
                     }
                     // Object 2 PlainObject
                     if (Reflect.get(obj.body.body[0].argument, "type") === "CallExpression") {
                         if (obj.body.body[0].argument.callee.object.name === "Object") {
                             await this.write(TestPartsFunction.avaFunctionReturnPlainObject(obj.id.name), obj.id.name)
+                        }
+                        // Buffer
+                        if (obj.body.body[0].argument.callee.object.name === "Buffer") {
+                            await this.write(TestPartsFunction.avaFunctionReturnBuffer(obj.id.name), obj.id.name)
                         }
                     }
                 }
