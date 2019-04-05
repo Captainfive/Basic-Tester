@@ -10,6 +10,7 @@ const AvaStart = {
 const TestPartsFunction = {
     avaStartFunction: taggedString`avaTest("Function ${0}", (assert) => {\n`,
     avaIsFunction: taggedString`    assert.true(is.func(${0}))\n`,
+    avaIsAsyncFunction: taggedString`    assert.true(is.asyncFunction(${0}))\n`,
     avaFunctionReturnNumber: taggedString`    assert.true(is.number(${0}(10)))\n`,
     avaFunctionReturnString: taggedString`    assert.true(is.string(${0}()))\n`,
     avaFunctionReturnBoolean: taggedString`    assert.true(is.boolean(${0}()))\n`,
