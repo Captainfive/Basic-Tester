@@ -82,88 +82,99 @@ class Algo {
    */
     async CheckFunctions(Scriptparsed) {
         for (const obj of Scriptparsed.body) {
-            if (Reflect.get(obj, "type") === "FunctionDeclaration") {
-                if (Reflect.get(obj.body.body[0], "type") === "ReturnStatement") {
-                    // OBJECT {}
-                    if (Reflect.get(obj.body.body[0].argument, "type") === "ObjectExpression") {
-                        await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
-                    }
-                    // CLASS
-                    if (Reflect.get(obj.body.body[0].argument, "type") === "ClassExpression") {
-                        await this.write(TestPartsFunction.avaFunctionReturnClass(obj.id.name), obj.id.name)
-                    }
-                    // ARRAY
-                    if (Reflect.get(obj.body.body[0].argument, "type") === "ArrayExpression") {
-                        if (obj.body.body[0].argument.elements.length === 0) {
-                            await this.write(TestPartsFunction.avaFunctionReturnArray(obj.id.name), obj.id.name)
+            if (Reflect.get(obj, "type") === "FunctionDeclaration" && obj.async === false) {
+                if (obj.body.body[0] === undefined) {
+                    await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
+                    await appendFile("test.js", `${TestPartsFunction.avaIsFunction(obj.id.name)}`)
+                    await appendFile("test.js", `${TestPartsFunction.avaEND}`)
+                }
+                if (obj.body.body[0] !== undefined){
+                    if (Reflect.get(obj.body.body[0], "type") === "ReturnStatement") {
+                        // OBJECT {}
+                        if (Reflect.get(obj.body.body[0].argument, "type") === "ObjectExpression") {
+                            await this.write(TestPartsFunction.avaFunctionReturnObject(obj.id.name), obj.id.name)
                         }
-                    }
-                    if (Reflect.get(obj.body.body[0].argument, "type") === "NewExpression") {
-                        // PROMISE
-                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Promise") {
-                            await this.write(TestPartsFunction.avaFunctionReturnPromise(obj.id.name), obj.id.name)
+                        // CLASS
+                        if (Reflect.get(obj.body.body[0].argument, "type") === "ClassExpression") {
+                            await this.write(TestPartsFunction.avaFunctionReturnClass(obj.id.name), obj.id.name)
                         }
-                        // Error
-                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Error") {
-                            await this.write(TestPartsFunction.avaFunctionReturnError(obj.id.name), obj.id.name)
+                        // ARRAY
+                        if (Reflect.get(obj.body.body[0].argument, "type") === "ArrayExpression") {
+                            if (obj.body.body[0].argument.elements.length === 0) {
+                                await this.write(TestPartsFunction.avaFunctionReturnArray(obj.id.name), obj.id.name)
+                            }
                         }
-                        // Regexp
-                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "RegExp") {
-                            await this.write(TestPartsFunction.avaFunctionReturnRegExp(obj.id.name), obj.id.name)
+                        if (Reflect.get(obj.body.body[0].argument, "type") === "NewExpression") {
+                            // PROMISE
+                            if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Promise") {
+                                await this.write(TestPartsFunction.avaFunctionReturnPromise(obj.id.name), obj.id.name)
+                            }
+                            // Error
+                            if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Error") {
+                                await this.write(TestPartsFunction.avaFunctionReturnError(obj.id.name), obj.id.name)
+                            }
+                            // Regexp
+                            if (Reflect.get(obj.body.body[0].argument.callee, "name") === "RegExp") {
+                                await this.write(TestPartsFunction.avaFunctionReturnRegExp(obj.id.name), obj.id.name)
+                            }
+                            // Date
+                            if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Date") {
+                                await this.write(TestPartsFunction.avaFunctionReturnDate(obj.id.name), obj.id.name)
+                            }
+                            // SET
+                            if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Set") {
+                                await this.write(TestPartsFunction.avaFunctionReturnSet(obj.id.name), obj.id.name)
+                            }
+                            // MAP
+                            if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Map") {
+                                await this.write(TestPartsFunction.avaFunctionReturnMap(obj.id.name), obj.id.name)
+                            }
+                            // WeakMap
+                            if (Reflect.get(obj.body.body[0].argument.callee, "name") === "WeakMap") {
+                                await this.write(TestPartsFunction.avaFunctionReturnWeakMap(obj.id.name), obj.id.name)
+                            }
+                            // WeakSet
+                            if (Reflect.get(obj.body.body[0].argument.callee, "name") === "WeakSet") {
+                                await this.write(TestPartsFunction.avaFunctionReturnWeakSet(obj.id.name), obj.id.name)
+                            }
                         }
-                        // Date
-                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Date") {
-                            await this.write(TestPartsFunction.avaFunctionReturnDate(obj.id.name), obj.id.name)
+                        if (Reflect.get(obj.body.body[0].argument, "type") === "Literal") {
+                            // String
+                            if (typeof (obj.body.body[0].argument.value) === "string") {
+                                await this.write(TestPartsFunction.avaFunctionReturnString(obj.id.name), obj.id.name)
+                            }
+                            //  Number
+                            if (typeof (obj.body.body[0].argument.value) === "number" && Reflect.get(obj.body.body[0].argument, "bigint") === undefined) {
+                                await this.write(TestPartsFunction.avaFunctionReturnNumber(obj.id.name), obj.id.name)
+                            }
+                            // Boolean
+                            if (typeof (obj.body.body[0].argument.value) === "boolean") {
+                                await this.write(TestPartsFunction.avaFunctionReturnBoolean(obj.id.name), obj.id.name)
+                            }
+                            // Bigint
+                            if (typeof (obj.body.body[0].argument.bigint) === "string") {
+                                await this.write(TestPartsFunction.avaFunctionReturnBigint(obj.id.name), obj.id.name)
+                            }
+                            // NULL
+                            if (Reflect.get(obj.body.body[0].argument, "value") === null) {
+                                await this.write(TestPartsFunction.avaFunctionReturnNull(obj.id.name), obj.id.name)
+                            }
                         }
-                        // SET
-                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Set") {
-                            await this.write(TestPartsFunction.avaFunctionReturnSet(obj.id.name), obj.id.name)
-                        }
-                        // MAP
-                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Map") {
-                            await this.write(TestPartsFunction.avaFunctionReturnMap(obj.id.name), obj.id.name)
-                        }
-                        // WeakMap
-                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "WeakMap") {
-                            await this.write(TestPartsFunction.avaFunctionReturnWeakMap(obj.id.name), obj.id.name)
-                        }
-                        if (Reflect.get(obj.body.body[0].argument.callee, "name") === "WeakSet") {
-                            await this.write(TestPartsFunction.avaFunctionReturnWeakSet(obj.id.name), obj.id.name)
-                        }
-                    }
-                    if (Reflect.get(obj.body.body[0].argument, "type") === "Literal") {
-                        // String
-                        if (typeof (obj.body.body[0].argument.value) === "string") {
-                            await this.write(TestPartsFunction.avaFunctionReturnString(obj.id.name), obj.id.name)
-                        }
-                        //  Number
-                        if (typeof (obj.body.body[0].argument.value) === "number" && Reflect.get(obj.body.body[0].argument, "bigint") === undefined) {
-                            await this.write(TestPartsFunction.avaFunctionReturnNumber(obj.id.name), obj.id.name)
-                        }
-                        // Boolean
-                        if (typeof (obj.body.body[0].argument.value) === "boolean") {
-                            await this.write(TestPartsFunction.avaFunctionReturnBoolean(obj.id.name), obj.id.name)
-                        }
-                        // Bigint
-                        if (typeof (obj.body.body[0].argument.bigint) === "string") {
-                            await this.write(TestPartsFunction.avaFunctionReturnBigint(obj.id.name), obj.id.name)
-                        }
-                        // NULL
-                        if (Reflect.get(obj.body.body[0].argument, "value") === null) {
-                            await this.write(TestPartsFunction.avaFunctionReturnNull(obj.id.name), obj.id.name)
-                        }
-                    }
-                    // Object 2 PlainObject
-                    if (Reflect.get(obj.body.body[0].argument, "type") === "CallExpression") {
-                        if (obj.body.body[0].argument.callee.object.name === "Object") {
-                            await this.write(TestPartsFunction.avaFunctionReturnPlainObject(obj.id.name), obj.id.name)
-                        }
-                        // Buffer
-                        if (obj.body.body[0].argument.callee.object.name === "Buffer") {
-                            await this.write(TestPartsFunction.avaFunctionReturnBuffer(obj.id.name), obj.id.name)
+                        // Object 2 PlainObject
+                        if (Reflect.get(obj.body.body[0].argument, "type") === "CallExpression") {
+                            if (obj.body.body[0].argument.callee.object.name === "Object") {
+                                await this.write(TestPartsFunction.avaFunctionReturnPlainObject(obj.id.name), obj.id.name)
+                            }
+                            // Buffer
+                            if (obj.body.body[0].argument.callee.object.name === "Buffer") {
+                                await this.write(TestPartsFunction.avaFunctionReturnBuffer(obj.id.name), obj.id.name)
+                            }
                         }
                     }
                 }
+            }
+            if (Reflect.get(obj, "type") === "FunctionDeclaration" && obj.async === true) {
+                await this.write(TestPartsFunction.avaIsAsyncFunction(obj.id.name), obj.id.name)
             }
         }
     }
