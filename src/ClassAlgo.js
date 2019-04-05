@@ -20,9 +20,11 @@ class Algo {
     * @throws {TypeError}
     */
     constructor(ScriptPath, ScriptParsed) {
+        // Check if the path is of type String
         if (typeof ScriptPath !== "string") {
             throw new TypeError("ScriptPath must be a string");
         }
+        // Check that the Script is of type Object
         if (typeof ScriptParsed !== "object") {
             throw new TypeError("ScriptParsed must be an object");
         }
@@ -50,10 +52,11 @@ class Algo {
     * @returns {Array}
     */
     CheckModuleExports(Scriptparsed) {
+        // Check that the Script is of type Object
         if (typeof Scriptparsed !== "object") {
             throw new TypeError("Scriptparsed should be typeof object!");
         }
-
+        // Check each script object to find the module.export
         let arr = []
         for (const obj of Scriptparsed.body) {
             if (obj.type === "ExpressionStatement") {
@@ -82,13 +85,16 @@ class Algo {
    */
     async CheckFunctions(Scriptparsed) {
         for (const obj of Scriptparsed.body) {
+            // CLASSIC FUNCTION
             if (Reflect.get(obj, "type") === "FunctionDeclaration" && obj.async === false) {
+                // No Return-Statement
                 if (obj.body.body[0] === undefined) {
                     await appendFile("test.js", `${TestPartsFunction.avaStartFunction(obj.id.name)}`)
                     await appendFile("test.js", `${TestPartsFunction.avaIsFunction(obj.id.name)}`)
                     await appendFile("test.js", `${TestPartsFunction.avaEND}`)
                 }
                 if (obj.body.body[0] !== undefined){
+                    //  RETURN STATEMENT
                     if (Reflect.get(obj.body.body[0], "type") === "ReturnStatement") {
                         // OBJECT {}
                         if (Reflect.get(obj.body.body[0].argument, "type") === "ObjectExpression") {
@@ -104,6 +110,7 @@ class Algo {
                                 await this.write(TestPartsFunction.avaFunctionReturnArray(obj.id.name), obj.id.name)
                             }
                         }
+                        // NEW EXPRESSION
                         if (Reflect.get(obj.body.body[0].argument, "type") === "NewExpression") {
                             // PROMISE
                             if (Reflect.get(obj.body.body[0].argument.callee, "name") === "Promise") {
@@ -138,6 +145,7 @@ class Algo {
                                 await this.write(TestPartsFunction.avaFunctionReturnWeakSet(obj.id.name), obj.id.name)
                             }
                         }
+                        // LITERAL
                         if (Reflect.get(obj.body.body[0].argument, "type") === "Literal") {
                             // String
                             if (typeof (obj.body.body[0].argument.value) === "string") {
@@ -160,8 +168,9 @@ class Algo {
                                 await this.write(TestPartsFunction.avaFunctionReturnNull(obj.id.name), obj.id.name)
                             }
                         }
-                        // Object 2 PlainObject
+                        // CALLEXPRESSION
                         if (Reflect.get(obj.body.body[0].argument, "type") === "CallExpression") {
+                            // PlainObject
                             if (obj.body.body[0].argument.callee.object.name === "Object") {
                                 await this.write(TestPartsFunction.avaFunctionReturnPlainObject(obj.id.name), obj.id.name)
                             }
@@ -173,6 +182,7 @@ class Algo {
                     }
                 }
             }
+            // ASYNC FUNCTION
             if (Reflect.get(obj, "type") === "FunctionDeclaration" && obj.async === true) {
                 await this.write(TestPartsFunction.avaIsAsyncFunction(obj.id.name), obj.id.name)
             }
